@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --aravali-green: #0c3b2e;
+  --aravali-sand: #c7a57a;
+  --aravali-brown: #5e3b1f;
+  --rajasthan-rose: #e56b83;
+  --ink: #0b1220;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: #f6f3ee;
+  background: radial-gradient(1200px 600px at 20% 0%, rgba(20, 90, 68, 0.55), transparent 60%),
+    radial-gradient(900px 500px at 80% 15%, rgba(199, 165, 122, 0.35), transparent 60%),
+    radial-gradient(900px 500px at 10% 80%, rgba(94, 59, 31, 0.55), transparent 60%),
+    linear-gradient(180deg, #2b1910 0%, #0b0f10 45%, #050b0d 100%);
+}
+
+::selection {
+  background: rgba(229, 107, 131, 0.45);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid rgba(229, 107, 131, 0.8);
+  outline-offset: 2px;
+}
