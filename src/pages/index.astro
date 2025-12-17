@@ -122,13 +122,6 @@ const success = url.searchParams.get('success') === '1';
                 Protect Rajasthan’s natural heritage. Sign up to receive updates on rallies, plantation drives, and urgent action calls.
               </p>
 
-              {success ? (
-                <div class="mt-4 rounded-2xl border border-green-400/20 bg-green-500/10 p-4 text-sm text-green-100">
-                  <div class="font-semibold">Thank you! You are now part of the movement.</div>
-                  <div class="mt-1 text-green-100/80">We will be in touch with urgent action alerts and volunteer opportunities in your area.</div>
-                </div>
-              ) : null}
-
               <form
                 class="mt-5 grid gap-3"
                 name="supporters"
@@ -446,5 +439,68 @@ const success = url.searchParams.get('success') === '1';
         </div>
       </div>
     </footer>
+
+    {success ? (
+      <div id="successModal" class="fixed inset-0 z-[60] flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" data-close></div>
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="successTitle"
+          class="relative w-full max-w-lg rounded-3xl border border-white/15 bg-black/80 p-6 shadow-soft"
+        >
+          <div class="text-sm text-white/70">Registration</div>
+          <h3 id="successTitle" class="mt-2 text-2xl font-semibold">Thank you! You are now part of the movement.</h3>
+          <p class="mt-2 text-sm text-white/75">We will be in touch with urgent action alerts and volunteer opportunities in your area.</p>
+          <div class="mt-6 flex flex-col sm:flex-row gap-3">
+            <a
+              href="#crisis"
+              class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-5 py-3 font-semibold text-white/90 hover:bg-white/10"
+            >
+              See the crisis
+            </a>
+            <button
+              type="button"
+              data-close
+              class="inline-flex items-center justify-center rounded-xl bg-aravali-pink px-5 py-3 font-semibold text-white shadow-soft hover:brightness-110 active:brightness-95"
+            >
+              Close
+            </button>
+          </div>
+          <noscript>
+            <div class="mt-4 text-xs text-white/70">Form submitted successfully.</div>
+          </noscript>
+        </div>
+      </div>
+    ) : null}
+
+    <script is:inline>
+      (() => {
+        const modal = document.getElementById('successModal');
+        if (!modal) return;
+
+        const close = () => {
+          modal.classList.add('hidden');
+          try {
+            const url = new URL(window.location.href);
+            url.searchParams.delete('success');
+            window.history.replaceState({}, '', url.pathname + url.search + url.hash);
+          } catch (_) {
+            // ignore
+          }
+        };
+
+        modal.querySelectorAll('[data-close]').forEach((el) => {
+          el.addEventListener('click', close);
+        });
+
+        window.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') close();
+        });
+
+        const closeBtn = modal.querySelector('button[data-close]');
+        if (closeBtn) closeBtn.focus();
+      })();
+    </script>
   </body>
 </html>
