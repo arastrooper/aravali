@@ -1,7 +1,5 @@
 ---
 import '../styles/global.css';
-const url = new URL(Astro.request.url);
-const success = url.searchParams.get('success') === '1';
 ---
 <!doctype html>
 <html lang="en">
@@ -16,6 +14,14 @@ const success = url.searchParams.get('success') === '1';
     <meta property="og:type" content="website" />
 
     <link rel="icon" href="data:," />
+    <!-- Google Analytics (Partytown Optimized). Replace G-XXXXXXXXXX with your Measurement ID. -->
+    <script type="text/partytown" src="https://www.googletagmanager.com/gtag/js?id=G-T9RF3CM8PV"></script>
+    <script type="text/partytown">
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-T9RF3CM8PV');
+    </script>
   </head>
   <body class="min-h-screen">
     <header class="sticky top-0 z-50 backdrop-blur bg-black/25 border-b border-white/10">
@@ -30,6 +36,7 @@ const success = url.searchParams.get('success') === '1';
 
         <nav class="hidden md:flex items-center gap-6 text-sm text-white/80">
           <a class="hover:text-white" href="#problem">The 100-meter trap</a>
+          <a class="hover:text-white font-semibold text-aravali-pink" href="#evidence">THE MAP</a>
           <a class="hover:text-white" href="#campaign">#My99Aravali</a>
           <a class="hover:text-white" href="#protest">THE SAKA</a>
           <a class="hover:text-white" href="#facts">Facts</a>
@@ -104,12 +111,13 @@ const success = url.searchParams.get('success') === '1';
               <p class="mt-2 text-sm text-white/75">I will fight for the 99 meters.</p>
 
               <form
+                id="joinForm"
                 class="mt-5 grid gap-3"
                 name="supporters"
                 method="POST"
                 data-netlify="true"
                 netlify-honeypot="bot-field"
-                action="/?success=1#join"
+                action="/"
               >
                 <input type="hidden" name="form-name" value="supporters" />
                 <p class="hidden">
@@ -172,8 +180,17 @@ const success = url.searchParams.get('success') === '1';
                   </label>
                 </div>
 
-                <button type="submit" class="mt-3 inline-flex items-center justify-center rounded-xl bg-aravali-pink px-5 py-3 font-semibold text-white shadow-soft hover:brightness-110 active:brightness-95">
-                  Join the Movement
+                <button 
+                  id="submitBtn"
+                  type="submit" 
+                  class="mt-3 inline-flex items-center justify-center rounded-xl bg-aravali-pink px-5 py-3 font-semibold text-white shadow-soft hover:brightness-110 active:brightness-95 disabled:opacity-70 disabled:cursor-not-allowed"
+                >
+                  <span id="btnText">Join the Movement</span>
+                  <!-- Hidden Spinner -->
+                  <svg id="btnSpinner" class="hidden h-5 w-5 animate-spin text-white ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
                 </button>
 
                 <div class="text-xs text-white/55">
@@ -241,6 +258,146 @@ const success = url.searchParams.get('success') === '1';
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <!-- START OF NEW MAP SECTION -->
+      <section id="evidence" class="relative scroll-mt-20 border-y border-white/5 bg-black/20">
+        <div class="mx-auto max-w-6xl px-4 py-14 md:py-20">
+          <div class="text-center max-w-3xl mx-auto mb-10">
+            <h2 class="text-3xl md:text-4xl font-semibold">We Mapped the Destruction.</h2>
+            <p class="mt-4 text-lg text-white/75">
+              The government claims only 0.19% of the area is affected. 
+              <span class="text-white font-medium">Our satellite forensic audit proves that 22% of the range—the critical corridors—is stripped of protection.</span>
+            </p>
+          </div>
+
+          <!-- Custom Legend -->
+          <div class="flex flex-wrap justify-center gap-4 mb-6 text-sm">
+            <div class="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2">
+              <span class="block h-3 w-3 rounded-full bg-[#00FF00] shadow-[0_0_10px_#00FF00]"></span>
+              <span class="text-white/90">Protected (Peaks >100m)</span>
+            </div>
+            <div class="flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-4 py-2">
+              <span class="block h-3 w-3 rounded-full bg-[#FF0000] shadow-[0_0_10px_#FF0000]"></span>
+              <span class="text-white/90 font-semibold">Stripped of Protection (<100m)</span>
+            </div>
+          </div>
+
+          <!-- THE BODY COUNT SCOREBOARD -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            
+            <!-- Card 1: Total Inventory -->
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-5 text-center backdrop-blur-sm">
+              <div class="text-xs font-medium tracking-wider text-white/60 uppercase">Total Hills Identified</div>
+              <div class="mt-2 text-3xl md:text-4xl font-bold text-white">28,978</div>
+              <div class="mt-1 text-xs text-white/40">distinct ecosystems (>1 hectare)</div>
+            </div>
+
+            <!-- Card 2: The Survivors -->
+            <div class="rounded-2xl border border-white/10 bg-gradient-to-br from-green-900/20 to-black/40 p-5 text-center backdrop-blur-sm relative overflow-hidden">
+              <div class="absolute inset-0 border-b-2 border-[#00FF00]/30"></div>
+              <div class="text-xs font-medium tracking-wider text-[#00FF00] uppercase">Protected (Green)</div>
+              <div class="mt-2 text-3xl md:text-4xl font-bold text-white">1,037</div>
+              <div class="mt-1 text-xs text-white/50">Only 3.6% meet the 100m rule</div>
+            </div>
+
+            <!-- Card 3: The Casualties -->
+            <div class="rounded-2xl border border-red-500/20 bg-gradient-to-br from-red-900/20 to-black/40 p-5 text-center backdrop-blur-sm relative overflow-hidden shadow-[0_0_30px_rgba(255,0,0,0.1)]">
+              <div class="absolute inset-0 border-b-2 border-[#FF0000]/50"></div>
+              <div class="text-xs font-medium tracking-wider text-[#FF0000] uppercase">Condemned (Red)</div>
+              <div class="mt-2 text-3xl md:text-4xl font-bold text-[#FF5555]">27,941</div>
+              <div class="mt-1 text-xs text-red-200/50">96.4% of hills stripped of protection</div>
+            </div>
+
+          </div>
+          <!-- END SCOREBOARD -->
+
+          <!-- Map Container -->
+          <div class="relative w-full overflow-hidden rounded-3xl border border-white/15 bg-black shadow-2xl">
+            <!-- Loading Spinner / Background -->
+            <div class="absolute inset-0 flex items-center justify-center bg-gray-900 -z-10">
+              <span class="text-white/30 text-sm">Loading Satellite Data...</span>
+            </div>
+            
+            <!-- Felt Map Iframe -->
+            <iframe 
+              width="100%" 
+              height="650" 
+              frameborder="0" 
+              title="Aravali Destruction Map" 
+              src="https://felt.com/embed/map/Untitled-Map-3ENE7OIkQF2FZ6fbHJ9BV9BC?loc=26.804%2C74.966%2C6.4z&legend=0&cooperativeGestures=1&link=1&geolocation=1&zoomControls=1&scaleBar=1" 
+              referrerpolicy="strict-origin-when-cross-origin"
+              class="w-full h-[500px] md:h-[700px]"
+            ></iframe>
+            
+            <!-- Overlay Caption for Mobile -->
+            <div class="absolute bottom-4 left-4 right-4 pointer-events-none md:hidden">
+              <div class="bg-black/80 backdrop-blur rounded-xl p-3 text-xs text-center border border-white/10 text-white/80">
+                Pinch to Zoom • Look for Red Zones
+              </div>
+            </div>
+          </div>
+
+          <!-- Data Citation -->
+          <div class="mt-4 flex flex-col md:flex-row justify-between items-center text-xs text-white/40 gap-2">
+            <div>Data Source: NASA SRTM 1 Arc-Second Global (30m Resolution)</div>
+            <div>Methodology: Geomorphic Relief Analysis (>20m relief)</div>
+          </div>
+
+          <!-- Call to Action below map -->
+          <div class="mt-8 text-center">
+            <p class="text-white/80 mb-4">Is your village or favorite hill in the Red Zone?</p>
+            <a href="#protest" class="inline-flex items-center justify-center rounded-xl bg-white/10 border border-white/10 px-5 py-2 text-sm font-semibold text-white hover:bg-white/20 transition-colors">
+              Report a Threat
+            </a>
+          </div>
+        </div>
+      </section>
+      <!-- END OF NEW MAP SECTION -->
+
+      <!-- SOURCES & METHODOLOGY (Collapsible) -->
+      <section class="border-b border-white/5 bg-black/40 py-8">
+        <div class="mx-auto max-w-4xl px-4">
+          <details class="group rounded-xl border border-white/10 bg-white/5 open:bg-black/40">
+            <summary class="flex cursor-pointer items-center justify-between p-4 text-sm font-medium text-white/70 hover:text-white group-open:text-white">
+              <span>View Data Sources & Government References</span>
+              <span class="transition group-open:rotate-180">
+                <svg fill="none" height="20" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+              </span>
+            </summary>
+            <div class="border-t border-white/10 p-5 text-sm text-white/60">
+              <div class="grid gap-6 md:grid-cols-2">
+                <div>
+                  <h4 class="font-semibold text-white">Government Claims</h4>
+                  <ul class="mt-2 list-disc pl-4 space-y-2">
+                    <li>
+                      <a href="https://pib.gov.in/PressReleasePage.aspx?PRID=1847321" target="_blank" class="underline hover:text-aravali-pink">MOEFCC Press Release (0.19% Claim)</a>: 
+                      Government statement claiming only miniscule area is open to mining.
+                    </li>
+                    <li>
+                      <span class="text-white">The "100-Meter" Definition:</span> 
+                      Recent Supreme Court / CEC recommendations defining a hill based on elevation from local ground level.
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-white">Our Analysis</h4>
+                  <ul class="mt-2 list-disc pl-4 space-y-2">
+                    <li>
+                      <span class="text-white">Satellite Data:</span> NASA SRTM 1 Arc-Second Global (30m Resolution).
+                    </li>
+                    <li>
+                      <span class="text-white">Processing:</span> Geomorphic filtering identifying all landforms >20m relative relief.
+                    </li>
+                    <li>
+                      <span class="text-white">Buffer Logic:</span> We applied a strict 500m protection radius around every government-protected peak. The "Red Zones" are outside this buffer.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </details>
         </div>
       </section>
 
@@ -431,67 +588,99 @@ const success = url.searchParams.get('success') === '1';
       </div>
     </footer>
 
-    {success ? (
-      <div id="successModal" class="fixed inset-0 z-[60] flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" data-close></div>
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="successTitle"
-          class="relative w-full max-w-lg rounded-3xl border border-white/15 bg-black/80 p-6 shadow-soft"
-        >
-          <div class="text-sm text-white/70">Registration</div>
-          <h3 id="successTitle" class="mt-2 text-2xl font-semibold">Thank you! You are now part of the movement.</h3>
-          <p class="mt-2 text-sm text-white/75">We will be in touch with urgent action alerts and volunteer opportunities in your area.</p>
-          <div class="mt-6 flex flex-col sm:flex-row gap-3">
-            <a
-              href="#problem"
-              class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-5 py-3 font-semibold text-white/90 hover:bg-white/10"
-            >
-              See the 100-meter trap
-            </a>
-            <button
-              type="button"
-              data-close
-              class="inline-flex items-center justify-center rounded-xl bg-aravali-pink px-5 py-3 font-semibold text-white shadow-soft hover:brightness-110 active:brightness-95"
-            >
-              Close
-            </button>
-          </div>
-          <noscript>
-            <div class="mt-4 text-xs text-white/70">Form submitted successfully.</div>
-          </noscript>
+    <div id="successModal" class="fixed inset-0 z-[60] hidden flex items-center justify-center p-4">
+      <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" data-close></div>
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="successTitle"
+        class="relative w-full max-w-lg rounded-3xl border border-white/15 bg-black/80 p-6 shadow-soft"
+      >
+        <div class="text-sm text-white/70">Registration</div>
+        <h3 id="successTitle" class="mt-2 text-2xl font-semibold">Thank you! You are now part of the movement.</h3>
+        <p class="mt-2 text-sm text-white/75">We will be in touch with urgent action alerts and volunteer opportunities in your area.</p>
+        <div class="mt-6 flex flex-col sm:flex-row gap-3">
+          <a
+            href="#problem"
+            class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-5 py-3 font-semibold text-white/90 hover:bg-white/10"
+          >
+            See the 100-meter trap
+          </a>
+          <button
+            type="button"
+            data-close
+            class="inline-flex items-center justify-center rounded-xl bg-aravali-pink px-5 py-3 font-semibold text-white shadow-soft hover:brightness-110 active:brightness-95"
+          >
+            Close
+          </button>
         </div>
+        <noscript>
+          <div class="mt-4 text-xs text-white/70">Form submitted successfully.</div>
+        </noscript>
       </div>
-    ) : null}
+    </div>
 
     <script is:inline>
-      (() => {
-        const modal = document.getElementById('successModal');
-        if (!modal) return;
+      const form = document.getElementById('joinForm');
+      const btn = document.getElementById('submitBtn');
+      const btnText = document.getElementById('btnText');
+      const btnSpinner = document.getElementById('btnSpinner');
+      const successModal = document.getElementById('successModal');
 
+      if (form && btn && btnText && btnSpinner) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+
+          // 1. Lock the UI
+          btn.disabled = true;
+          btnText.innerText = 'Joining...';
+          btnSpinner.classList.remove('hidden');
+
+          // 2. Prepare Data for Netlify
+          const formData = new FormData(form);
+
+          // 3. Send to Netlify via Fetch
+          fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(formData).toString(),
+          })
+            .then(() => {
+              // 4. Success!
+              // Reset form
+              form.reset();
+              // Show Modal
+              if (successModal) successModal.classList.remove('hidden');
+              // Reset Button
+              btnText.innerText = 'Joined!';
+              setTimeout(() => {
+                btn.disabled = false;
+                btnText.innerText = 'Join the Movement';
+                btnSpinner.classList.add('hidden');
+              }, 2000);
+            })
+            .catch(() => {
+              alert('Something went wrong. Please try again.');
+              btn.disabled = false;
+              btnText.innerText = 'Try Again';
+              btnSpinner.classList.add('hidden');
+            });
+        });
+      }
+
+      if (successModal) {
         const close = () => {
-          modal.classList.add('hidden');
-          try {
-            const url = new URL(window.location.href);
-            url.searchParams.delete('success');
-            window.history.replaceState({}, '', url.pathname + url.search + url.hash);
-          } catch (_) {
-            // ignore
-          }
+          successModal.classList.add('hidden');
         };
 
-        modal.querySelectorAll('[data-close]').forEach((el) => {
+        successModal.querySelectorAll('[data-close]').forEach((el) => {
           el.addEventListener('click', close);
         });
 
         window.addEventListener('keydown', (e) => {
           if (e.key === 'Escape') close();
         });
-
-        const closeBtn = modal.querySelector('button[data-close]');
-        if (closeBtn) closeBtn.focus();
-      })();
+      }
     </script>
   </body>
 </html>
