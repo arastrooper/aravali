@@ -267,51 +267,35 @@ import '../styles/global.css';
           <div class="text-center max-w-3xl mx-auto mb-10">
             <h2 class="text-3xl md:text-4xl font-semibold">We Mapped the Destruction.</h2>
             <p class="mt-4 text-lg text-white/75">
-              The government claims only 0.19% of the area is affected. 
-              <span class="text-white font-medium">Our satellite forensic audit proves that 22% of the range—the critical corridors—is stripped of protection.</span>
+              The government claims the 100m rule protects the range. Our forensic audit proves otherwise.
+              <br class="hidden md:block" />
+              <span class="text-white font-medium">
+                The old maps show <span class="text-aravali-green font-semibold">area protected</span>.
+                These new numbers show <span class="text-aravali-pink font-semibold">individual hill ecosystems</span> left to mining.
+              </span>
             </p>
           </div>
 
           <!-- Custom Legend -->
           <div class="flex flex-wrap justify-center gap-4 mb-6 text-sm">
+            <!-- Layer 1: Dark Green -->
             <div class="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2">
-              <span class="block h-3 w-3 rounded-full bg-[#00FF00] shadow-[0_0_10px_#00FF00]"></span>
-              <span class="text-white/90">Protected (Peaks >100m)</span>
+              <span class="block h-3 w-3 rounded-full bg-[#006400] shadow-[0_0_10px_#006400]"></span>
+              <span class="text-white/90">Existing Forests</span>
             </div>
+
+            <!-- Layer 2: Neon Green -->
+            <div class="flex items-center gap-2 rounded-full border border-green-500/30 bg-green-500/10 px-4 py-2">
+              <span class="block h-3 w-3 rounded-full bg-[#00FF00] shadow-[0_0_10px_#00FF00]"></span>
+              <span class="text-white/90 font-semibold">Added by New Law</span>
+            </div>
+
+            <!-- Layer 3: Red -->
             <div class="flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-4 py-2">
               <span class="block h-3 w-3 rounded-full bg-[#FF0000] shadow-[0_0_10px_#FF0000]"></span>
-              <span class="text-white/90 font-semibold">Stripped of Protection (<100m)</span>
+              <span class="text-white/90 font-semibold">The Gap (Unprotected)</span>
             </div>
           </div>
-
-          <!-- THE BODY COUNT SCOREBOARD -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            
-            <!-- Card 1: Total Inventory -->
-            <div class="rounded-2xl border border-white/10 bg-white/5 p-5 text-center backdrop-blur-sm">
-              <div class="text-xs font-medium tracking-wider text-white/60 uppercase">Total Hills Identified</div>
-              <div class="mt-2 text-3xl md:text-4xl font-bold text-white">28,978</div>
-              <div class="mt-1 text-xs text-white/40">distinct ecosystems (>1 hectare)</div>
-            </div>
-
-            <!-- Card 2: The Survivors -->
-            <div class="rounded-2xl border border-white/10 bg-gradient-to-br from-green-900/20 to-black/40 p-5 text-center backdrop-blur-sm relative overflow-hidden">
-              <div class="absolute inset-0 border-b-2 border-[#00FF00]/30"></div>
-              <div class="text-xs font-medium tracking-wider text-[#00FF00] uppercase">Protected (Green)</div>
-              <div class="mt-2 text-3xl md:text-4xl font-bold text-white">1,037</div>
-              <div class="mt-1 text-xs text-white/50">Only 3.6% meet the 100m rule</div>
-            </div>
-
-            <!-- Card 3: The Casualties -->
-            <div class="rounded-2xl border border-red-500/20 bg-gradient-to-br from-red-900/20 to-black/40 p-5 text-center backdrop-blur-sm relative overflow-hidden shadow-[0_0_30px_rgba(255,0,0,0.1)]">
-              <div class="absolute inset-0 border-b-2 border-[#FF0000]/50"></div>
-              <div class="text-xs font-medium tracking-wider text-[#FF0000] uppercase">Condemned (Red)</div>
-              <div class="mt-2 text-3xl md:text-4xl font-bold text-[#FF5555]">27,941</div>
-              <div class="mt-1 text-xs text-red-200/50">96.4% of hills stripped of protection</div>
-            </div>
-
-          </div>
-          <!-- END SCOREBOARD -->
 
           <!-- Map Container -->
           <div class="relative w-full overflow-hidden rounded-3xl border border-white/15 bg-black shadow-2xl">
@@ -343,6 +327,46 @@ import '../styles/global.css';
           <div class="mt-4 flex flex-col md:flex-row justify-between items-center text-xs text-white/40 gap-2">
             <div>Data Source: NASA SRTM 1 Arc-Second Global (30m Resolution)</div>
             <div>Methodology: Geomorphic Relief Analysis (>20m relief)</div>
+          </div>
+
+          <!-- STATS GRID -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+            
+            <!-- CARD 1: TOTAL -->
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-6 text-center">
+              <h3 class="text-sm font-medium text-white/50 uppercase tracking-widest">Total Hills Identified</h3>
+              <div class="mt-2 text-5xl font-bold text-white">50,291</div>
+              <p class="mt-2 text-sm text-white/60">Distinct ecosystems (>1 hectare)</p>
+            </div>
+
+            <!-- CARD 2: THE "SAVED" (Mixed) -->
+            <div class="rounded-2xl border border-green-500/20 bg-green-900/10 p-6 text-center relative overflow-hidden">
+              <h3 class="text-sm font-medium text-green-400 uppercase tracking-widest">Added by New Law</h3>
+              <div class="mt-2 text-5xl font-bold text-green-400">4,840</div>
+              <p class="mt-2 text-sm text-green-200/60">Only <span class="text-white font-bold">9.6%</span> of hills gain new protection</p>
+              <!-- Optional: Mention existing forests -->
+              <div class="mt-3 border-t border-white/10 pt-2 text-xs text-white/40">
+                (Plus 2,005 hills already in Forest Dept land)
+              </div>
+            </div>
+
+            <!-- CARD 3: THE CONDEMNED -->
+            <div class="rounded-2xl border border-red-500/20 bg-red-900/10 p-6 text-center">
+              <h3 class="text-sm font-medium text-red-400 uppercase tracking-widest">Abandoned</h3>
+              <div class="mt-2 text-5xl font-bold text-red-500">43,446</div>
+              <p class="mt-2 text-sm text-red-200/60">
+                <span class="text-white font-bold">86.4%</span> of hills are stripped of protection
+              </p>
+            </div>
+
+          </div>
+
+          <!-- THE ZINGER LINE -->
+          <div class="mt-6 text-center">
+            <p class="text-white/80 text-lg">
+              <span class="text-aravali-pink font-bold">THE REALITY:</span> 
+              For every 1 hill the new law saves, it sacrifices 9 to mining.
+            </p>
           </div>
 
           <!-- Call to Action below map -->
@@ -391,7 +415,7 @@ import '../styles/global.css';
                       <span class="text-white">Processing:</span> Geomorphic filtering identifying all landforms >20m relative relief.
                     </li>
                     <li>
-                      <span class="text-white">Buffer Logic:</span> We applied a strict 500m protection radius around every government-protected peak. The "Red Zones" are outside this buffer.
+                      <span class="text-white">Gap Analysis:</span> We compared the satellite terrain against <strong>Existing Reserve Forests (KMLs)</strong> and the <strong>New 100m Rule</strong>. <br />The "Red Zone" represents hills that are ecologically vital but fall outside both protections.
                     </li>
                   </ul>
                 </div>
