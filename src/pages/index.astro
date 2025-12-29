@@ -425,6 +425,56 @@ import '../styles/global.css';
                       </ul>
                     </div>
                   </div>
+
+                  <div class="mt-6 border-t border-white/10 pt-4">
+                    <h4 class="font-semibold text-white mb-2">Sensitivity Analysis (Stress Testing)</h4>
+                    <p class="text-sm text-white/70 mb-3">
+                      To ensure accuracy, we tested multiple scientific thresholds. Regardless of the strictness of the filter, the data confirms massive loss of protection.
+                    </p>
+
+                    <div class="overflow-x-auto rounded-lg border border-white/10">
+                      <table class="w-full text-sm text-left text-white/70">
+                        <thead class="text-xs text-white/50 uppercase bg-white/5 border-b border-white/10">
+                          <tr>
+                            <th class="px-4 py-2">Scenario</th>
+                            <th class="px-4 py-2">Height Rule</th>
+                            <th class="px-4 py-2">Hole Filling?</th>
+                            <th class="px-4 py-2 text-white">Area Lost</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="border-b border-white/5">
+                            <td class="px-4 py-2">Ultra-Strict (Foothills Excluded)</td>
+                            <td class="px-4 py-2">&gt; 25m</td>
+                            <td class="px-4 py-2">No</td>
+                            <td class="px-4 py-2 text-white font-mono">24.2%</td>
+                          </tr>
+                          <tr class="border-b border-white/5">
+                            <td class="px-4 py-2">Strict + Solid Volume</td>
+                            <td class="px-4 py-2">&gt; 25m</td>
+                            <td class="px-4 py-2">Yes</td>
+                            <td class="px-4 py-2 text-white font-mono">32.0%</td>
+                          </tr>
+                          <tr class="bg-white/5 border-b border-white/5">
+                            <td class="px-4 py-2 font-bold text-aravali-pink">NASA Standard (Official)</td>
+                            <td class="px-4 py-2">&gt; 20m</td>
+                            <td class="px-4 py-2">Yes</td>
+                            <td class="px-4 py-2 font-bold text-aravali-pink font-mono">42.6%</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2">Raw Relief (No Slope Filter)</td>
+                            <td class="px-4 py-2">&gt; 20m</td>
+                            <td class="px-4 py-2">No</td>
+                            <td class="px-4 py-2 text-white font-mono">49.0%</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    
+                    <p class="mt-3 text-xs text-white/50 italic">
+                      *Conclusion: Even under the strictest, most conservative parameters (25m height, no vegetation), nearly 1/4th of the range is abandoned. The scientifically accurate model (20m + Volumetric) identifies 42.6% loss.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
