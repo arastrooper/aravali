@@ -1,0 +1,84 @@
+<div id="map" class="w-full h-[600px] rounded-3xl z-10 relative"></div>
+
+<!-- Leaflet CSS -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+  window.addEventListener("load", () => {
+    const mapElement = document.getElementById("map");
+    if (!mapElement) return;
+
+    // Initialize Map
+    const map = L.map("map", {
+      center: [26.0, 74.5],
+      zoom: 7,
+      minZoom: 5, // Don't let them zoom out to see the whole world
+      maxZoom: 20, // Allow zooming in all the way to street level
+      scrollWheelZoom: false, // Keep this false to prevent scroll-jacking
+    });
+
+    // 1. Base Map (Google Satellite) - High Res
+    L.tileLayer("https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}", {
+      subdomains: ["mt0", "mt1", "mt2", "mt3"],
+      attribution: "© Google | Data: NASA SRTM",
+      maxZoom: 20, // Google has tiles up to 20
+    }).addTo(map);
+
+    // --- DATA LAYERS CONFIGURATION ---
+    // maxNativeZoom: 13 -> The highest folder number you actually have on your server
+    // maxZoom: 20       -> Keep showing the layer up to this level (by stretching)
+
+    // Layer: Existing Forests (Dark Green)
+    const forestLayer = L.tileLayer("/tiles/green/{z}/{x}/{y}.png", {
+      tms: false,
+      opacity: 0.5,
+      minZoom: 5,
+      maxNativeZoom: 12, // STOP looking for files after 12 (matches highest folder)
+      maxZoom: 20, // STRETCH the image for 13–20
+      autoZIndex: true,
+    }).addTo(map);
+
+    // Layer: New 100m Rule (Neon Green)
+    const neonLayer = L.tileLayer("/tiles/neon/{z}/{x}/{y}.png", {
+      tms: false,
+      opacity: 0.6,
+      minZoom: 5,
+      maxNativeZoom: 12,
+      maxZoom: 20,
+      autoZIndex: true,
+    }).addTo(map);
+
+    // Layer: The Destruction (Red)
+    const redLayer = L.tileLayer("/tiles/red/{z}/{x}/{y}.png", {
+      tms: false,
+      opacity: 0.6,
+      minZoom: 5,
+      maxNativeZoom: 12,
+      maxZoom: 20,
+      autoZIndex: true,
+    }).addTo(map);
+
+    // 3. Labels Overlay (Roads & Names)
+    L.tileLayer("https://{s}.google.com/vt/lyrs=h&x={x}&y={y}&z={z}", {
+      subdomains: ["mt0", "mt1", "mt2", "mt3"],
+      opacity: 1.0,
+      zIndex: 1000, // Forces labels on top
+      maxZoom: 20,
+    }).addTo(map);
+
+    // Layer Controls
+    const overlays = {
+      "<span style='color:#FF4444; font-weight:bold;'>⚠️ Abandoned (Red)</span>": redLayer,
+      "<span style='color:#00FF00; font-weight:bold;'>✨ New 100m Rule</span>": neonLayer,
+      "<span style='color:#006400; font-weight:bold;'>🛡️ Existing Forests</span>": forestLayer,
+    };
+
+    L.control.layers(null, overlays, { position: "topright" }).addTo(map);
+  });
+</script>
